@@ -5,6 +5,7 @@ const { HashingProcess } = require('./Hashing.js');
 const { userOrNot } = require('./userOrNot.js');
 const crypto = require("crypto");
 const mainStorageJsonName = 'storageJSON.json';
+const PORT = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
     if (req.method === "GET" && req.url === "/") {
@@ -93,6 +94,7 @@ const server = http.createServer((req, res) => {
 });
 
 
-server.listen(3000, () => {
+server.listen(PORT, "0.0.0.0", () => {
     console.log("server is listen on https://localhost:3000");
+
 })
