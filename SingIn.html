@@ -509,7 +509,7 @@
             }
 
             try {
-                const result = await fetch('http://localhost:3000/SingIn.html', {
+                const result = await fetch('/SingIn.html', {
                     method: "POST",
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -528,5 +528,6 @@
     </script>
 
 </body>
+
 
 </html>
