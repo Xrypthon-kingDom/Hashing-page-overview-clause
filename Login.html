@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login ( Xrypthon ) </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
+
+    :root {
+        --primary-color: #5D54A4;
+        --secondary-color: #7C78B8;
+        --accent-color: #6A679E;
+        --light-color: #FFF;
+        --dark-color: #4C489D;
+        --shadow-color: #5C5696;
+        --input-border: #D1D1D4;
+        --error-color: #ff4757;
+        --success-color: #2ed573;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #C7C5F4, #776BCC);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .screen {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        position: relative;
+        height: auto;
+        min-height: 600px;
+        width: 100%;
+        box-shadow: 0 10px 30px rgba(92, 86, 150, 0.4);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .screen:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(92, 86, 150, 0.5);
+    }
+
+    .screen__content {
+        z-index: 1;
+        position: relative;
+        height: 100%;
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .screen__background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+        -webkit-clip-path: inset(0 0 0 0);
+        clip-path: inset(0 0 0 0);
+    }
+
+    .screen__background__shape {
+        transform: rotate(45deg);
+        position: absolute;
+        opacity: 0.8;
+        transition: all 0.5s ease;
+    }
+
+    .screen__background__shape1 {
+        height: 520px;
+        width: 520px;
+        background: var(--light-color);
+        top: -50px;
+        right: 120px;
+        border-radius: 0 72px 0 0;
+    }
+
+    .screen__background__shape2 {
+        height: 220px;
+        width: 220px;
+        background: var(--accent-color);
+        top: -172px;
+        right: 0;
+        border-radius: 32px;
+    }
+
+    .screen__background__shape3 {
+        height: 540px;
+        width: 190px;
+        background: linear-gradient(270deg, var(--primary-color), var(--accent-color));
+        top: -24px;
+        right: 0;
+        border-radius: 32px;
+    }
+
+    .screen__background__shape4 {
+        height: 400px;
+        width: 200px;
+        background: var(--secondary-color);
+        top: 420px;
+        right: 50px;
+        border-radius: 60px;
+    }
+
+    .login {
+        width: 100%;
+    }
+
+    .login__header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .login__title {
+        color: var(--light-color);
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .login__subtitle {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .login__field {
+        padding: 15px 0;
+        position: relative;
+    }
+
+    .login__icon {
+        position: absolute;
+        top: 28px;
+        left: 0;
+        color: var(--accent-color);
+        transition: color 0.3s ease;
+    }
+
+    .login__input {
+        border: none;
+        border-bottom: 2px solid var(--input-border);
+        background: none;
+        padding: 12px 10px 12px 32px;
+        font-weight: 600;
+        width: 100%;
+        transition: all 0.3s ease;
+        color: black;
+        font-size: 16px;
+    }
+
+    .login__input::placeholder {
+        color: rgba(97, 97, 97, 0.6);
+    }
+
+    .login__input:active,
+    .login__input:focus,
+    .login__input:hover {
+        outline: none;
+        border-bottom-color: var(--light-color);
+    }
+
+    .login__input:focus+.login__icon {
+        color: var(--light-color);
+    }
+
+    .login__options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    .remember-me {
+        display: flex;
+        align-items: center;
+        color: rgba(97, 97, 97, 0.6);
+    }
+
+    .remember-me input {
+        margin-right: 5px;
+    }
+
+    .forgot-password {
+        color: rgba(97, 97, 97, 0.6);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .forgot-password:hover {
+        color: rgba(97, 97, 97, 0.6);
+    }
+
+    .login__submit {
+        background: var(--light-color);
+        font-size: 16px;
+        margin-top: 30px;
+        padding: 16px 20px;
+        border-radius: 30px;
+        border: 1px solid #D4D3E8;
+        text-transform: uppercase;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        color: rgba(97, 97, 97, 0.6);
+        box-shadow: 0 4px 10px rgba(92, 86, 150, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login__submit:active,
+    .login__submit:focus,
+    .login__submit:hover {
+        border-color: var(--accent-color);
+        outline: none;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(92, 86, 150, 0.4);
+    }
+
+    .login__submit:active {
+        transform: translateY(0);
+    }
+
+    .button__text {
+        z-index: 1;
+        position: relative;
+    }
+
+    .button__icon {
+        font-size: 20px;
+        margin-left: 10px;
+        color: rgba(97, 97, 97, 0.6);
+        z-index: 1;
+        position: relative;
+    }
+
+    .social-login {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .social-login h3 {
+        color: rgba(97, 97, 97, 0.6);
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .social-icons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .social-login__icon {
+        padding: 12px;
+        color: var(--light-color);
+        text-decoration: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .social-login__icon:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .fab.fa-instagram {
+        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+
+    .fab.fa-facebook {
+        background: #3b5998;
+    }
+
+    .fab.fa-twitter {
+        background: #1da1f2;
+    }
+
+    .signup-link {
+        text-align: center;
+        margin-top: 20px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+    }
+
+    .signup-link a {
+        color: var(--light-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .signup-link a:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+        .screen {
+            border-radius: 15px;
+        }
+
+        .screen__content {
+            padding: 30px 20px;
+        }
+
+        .login__title {
+            font-size: 24px;
+        }
+
+        .login__options {
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+        }
+    }
+
+    /* Animation for form elements */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .login__field,
+    .login__submit,
+    .social-login {
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    .login__field:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .login__field:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .login__options {
+        animation-delay: 0.3s;
+    }
+
+    .login__submit {
+        animation-delay: 0.4s;
+    }
+
+    .social-login {
+        animation-delay: 0.5s;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="screen">
+            <div class="screen__content">
+                <div class="login__header">
+                    <h1 class="login__title">Log in</h1>
+                    <p class="login__subtitle">Please log in to your account</p>
+                </div>
+                <form class="login">
+                    <div class="login__field">
+                        <i class="login__icon fas fa-user"></i>
+                        <input type="text" id="username" class="login__input" placeholder="Username or Email" required>
+                    </div>
+                    <div class="login__field">
+                        <i class="login__icon fas fa-lock"></i>
+                        <input type="password" id="password" class="login__input" placeholder="Password" required>
+                    </div>
+                    <div class="login__options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="checkCase"> Remember me
+                        </label>
+                    </div>
+                    <button type="submit" class="button login__submit">
+                        <span class="button__text">Log In Now</span>
+                        <i class="button__icon fas fa-chevron-right"></i>
+                    </button>
+                </form>
+                <div class="signup-link">
+                    Don't have an account? <a href="/">Sign Up</a>
+                </div>
+                <div class="social-login">
+                    <h3>log in via</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-login__icon fab fa-instagram"></a>
+                        <a href="#" class="social-login__icon fab fa-facebook"></a>
+                        <a href="#" class="social-login__icon fab fa-twitter"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="screen__background">
+                <span class="screen__background__shape screen__background__shape4"></span>
+                <span class="screen__background__shape screen__background__shape3"></span>
+                <span class="screen__background__shape screen__background__shape2"></span>
+                <span class="screen__background__shape screen__background__shape1"></span>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function showTopAlert(message, type = "info", duration = 3000) {
+        const existing = document.querySelector(".top-alert");
+        if (existing) existing.remove();
+
+        const alert = document.createElement("div");
+        alert.className = `top-alert ${type}`;
+        alert.textContent = message;
+
+        alert.style.position = "fixed";
+        alert.style.top = "-50px";  // slide from top
+        alert.style.left = "50%";
+        alert.style.transform = "translateX(-50%)";
+        alert.style.padding = "15px 30px";
+        alert.style.borderRadius = "8px";
+        alert.style.fontSize = "16px";
+        alert.style.color = "#fff";
+        alert.style.fontWeight = "bold";
+        alert.style.boxShadow = "0 4px 10px rgba(0,0,0,0.2)";
+        alert.style.zIndex = 9999;
+        alert.style.opacity = 0;
+        alert.style.transition = "opacity 0.5s, top 0.5s";
+
+        switch (type) {
+            case "success": alert.style.backgroundColor = "#4caf50"; break;
+            case "error": alert.style.backgroundColor = "#f44336"; break;
+            case "warning": alert.style.backgroundColor = "#ff9800"; break;
+            default: alert.style.backgroundColor = "#2196f3";
+        }
+
+        alert.addEventListener("click", () => {
+            alert.style.top = "-50px";
+            alert.style.opacity = 0;
+            setTimeout(() => alert.remove(), 500);
+        });
+
+        document.body.appendChild(alert);
+
+        setTimeout(() => {
+            alert.style.top = "20px";
+            alert.style.opacity = 1;
+        }, 10);
+
+        setTimeout(() => {
+            alert.style.top = "-50px";
+            alert.style.opacity = 0;
+            setTimeout(() => alert.remove(), 500);
+        }, duration);
+    }
+
+    const formCaller = document.getElementsByClassName("login")[0];
+    const userInputCaller = document.getElementById("username");
+    const passwordInputCaller = document.getElementById("password");
+    // console.log(formCaller, userInputCaller, passwordInputCaller);
+
+
+    formCaller.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+            const data = {
+                username: userInputCaller.value,
+                password: passwordInputCaller.value
+            }
+            const res = await fetch('http://localhost:3000/Login.html', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await res.text();
+            showTopAlert(result);
+        }
+        catch (e) {
+            console.log(e);
+
+        }
+    })
+</script>
+
+</html>
