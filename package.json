@@ -1,0 +1,20 @@
+{
+  "name": "user-authentication-project",
+  "version": "1.0.0",
+  "description": "A simple Node.js project for user sign-in and login using built-in modules for HTTP, file handling, and crypto (scrypt).",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "authentication",
+    "http",
+    "crypto",
+    "hashing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}
