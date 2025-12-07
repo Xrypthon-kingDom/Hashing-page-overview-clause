@@ -505,7 +505,7 @@
                 username: userInputCaller.value,
                 password: passwordInputCaller.value
             }
-            const res = await fetch('http://localhost:3000/Login.html', {
+            const res = await fetch('/Login.html', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
@@ -519,5 +519,6 @@
         }
     })
 </script>
+
 
 </html>
